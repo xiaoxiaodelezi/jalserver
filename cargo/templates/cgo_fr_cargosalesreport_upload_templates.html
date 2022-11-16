@@ -1,0 +1,10 @@
+<p1>This is import cargo special upload page</p1>
+
+<form action="{% url 'fr_cargosalesreport_result'%} " method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    <input type="file" name="Cargo Sales Report 01">
+    <br>
+    <input type="file" name="Cargo Sales Report 02">
+    <br>
+    <input type="submit">
+</form>

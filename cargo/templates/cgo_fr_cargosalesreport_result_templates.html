@@ -1,0 +1,39 @@
+<p1>cross check result</p1>
+<br>
+<br>
+<br>
+<p1>仅出现在{{file1}}中的运单详情</p1>
+<br>
+{% if in_set1_not_set2 == empty_list %}
+    <p><------------NIL----------------></p>
+{% else %}
+    {%for awb in in_set1_not_set2 %}
+        <p1>{{awb}}</p1>
+    {% endfor %}
+{% endif %}
+<br>
+<br>
+<br>
+<p1>仅出现在{{file2}}中的运单详情</p1>
+<br>
+<br>
+{% if in_set2_not_set1 == empty_list %}
+    <p><------------NIL----------------></p>
+{% else %}
+    {%for awb in in_set2_not_set1 %}
+        <p1>{{awb}}</p1>
+    {% endfor %}
+{% endif %}
+<br>
+<br>
+<br>
+<p1>在{{file1}}和{{file2}}中的信息不一致的运单详情</p1>
+<br>
+{% if in_both_not_equal == empty_list %}
+    <p><------------NIL----------------></p>
+{% else %}
+    {%for awb in in_both_not_equal %}
+        <p1>{{awb}}</p1>
+        <br>
+    {% endfor %}
+{% endif %}

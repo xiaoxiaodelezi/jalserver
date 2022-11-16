@@ -1,0 +1,27 @@
+<p1>日航进港特殊货物操作清单</p1>
+<br>
+<br>
+<p2>航班号： {{flightnumber}}</p2>
+<br>
+<p2>日期：&nbsp&nbsp&nbsp {{flightdate}}</p2>
+<br>
+<P2>JSP</P2>
+<br>
+{% for awb,details in revlocal.items %}
+    <!-- {% for shc in details.0 %}
+        {% if shc == 'JSP' %}
+            <p2>{{awb}}</p2>
+        {% endif %}
+    {% endfor %} -->
+    {% if 'JSP' in details.0 %}
+        <p2>{{awb}}:{{details.4}},{{details.5}}</p2>
+        <br>
+        {% for key,value in details.1.items%}
+            <p2>{{key}},{{value.0}},{{value.1}}</p2>
+        {% endfor %}
+        <br>
+    {% endif %}
+{% endfor %}
+<br>
+
+
