@@ -1,0 +1,18 @@
+<p>Cargo SCS For Other airlines</p>
+
+<form action="{% url 'cgo_traffic_scsforotherairlines_result'%}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    <br>
+    <br>  	 
+     Flight WD   <input type="file" name="weightdep">
+    <br>
+    <br>
+  	  MAIL1: 131-<input type="text" name="mailawb1" />  DSTN: <input type="text" name="maildstn1" /><br>
+    <br>
+  	  MAIL2: 131-<input type="text" name="mailawb2" />  DSTN: <input type="text" name="maildstn2" /><br>
+    <br>
+  	  MAIL3: 131-<input type="text" name="mailawb3" />  DSTN: <input type="text" name="maildstn3" /><br>
+    <br>
+    <br>
+    <input type="submit">
+</form>
