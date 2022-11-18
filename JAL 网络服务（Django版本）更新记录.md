@@ -32,4 +32,12 @@ FR部分增加了cargosalesreport比对逻辑
 
 将reservation和accouting合并
 
-在traffic中添加了外航scs筛选的子模块，初步写了逻辑。逻辑有些不足：1.分批重量没有涵盖进去 2.mail部分也没有联动进去。初步写好了templates，但具体动态实现还没有联动
+在traffic中添加了外航scs筛选的子模块，初步写了逻辑。逻辑有些不足：1.分批重量没有涵盖进去 2.mail部分也没有联动进去。初步写好了templates，但具体动态实现还没有联动。
+
+
+
+2022.11.18
+
+版本：Alpha 0.1.3
+
+外航scs的模块增加了邮件运单的输入，分批重量问题解决。scs_result的templates还在考虑如何写

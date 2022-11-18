@@ -103,22 +103,6 @@ def cgo_traffic_scsforotherairlines_result(request):
     ]
     if request.method=="POST":
 
-        #邮件位置的检查
-        mailawb1=request.POST.getlist('mailawb1')
-        mailawb2=request.POST.getlist('mailawb2')
-        mailawb3=request.POST.getlist('mailawb3')
-        maildstn1=request.POST.getlist('maildstn1')
-        maildstn2=request.POST.getlist('maildstn2')
-        maildstn3=request.POST.getlist('maildstn3')
-        #运单号位数
-        if len(mailawb1) !=8 and len(mailawb1) != 1:
-            return HttpResponse('Mail1 awb number is wrong')
-        if len(mailawb2) !=8 and len(mailawb2) != 1:
-            return HttpResponse('Mail2 awb number is wrong')
-        if len(mailawb3) !=8 and len(mailawb3) != 1:
-            return HttpResponse('Mail3 awb number is wrong')
-        #等待添加邮件目的港的检查
-
         #wd的出发内容
         file1=request.FILES.get('weightdep')
         str=getstrfrompdf(file1.read()).split("\n")
@@ -136,11 +120,40 @@ def cgo_traffic_scsforotherairlines_result(request):
         for item in str:         
             if item[:4]=='131-':
                 total_jlawb+=1
-                #运单重量没有考虑分批，需要重新考虑
-                # total_jlweight+=float(re.match('[0-9]{3}-[0-9]{8} [0-9]{1,} [0-9]{1,}.[0-9]{1,}',item)[0].split(" ")[-1])
+                if item[12:15]==" P ":
+                    total_jlweight+=float(item.split(' ')[3].split("/")[0])
+                else:
+                    total_jlweight+=float(re.match('[0-9]{3}-[0-9]{8} [0-9]{1,} [0-9]{1,}.[0-9]{1,}',item)[0].split(" ")[-1])
                 dstn = re.search(' [A-Z]{3}-[A-Z]{3} ',item)[0].split(" ")[-2][4:]
                 if dstn in america_list:
                     scslist.append(item[:12])
-        print(total_jlawb,total_jlweight)
-        print(scslist)
+        # print(total_jlawb,total_jlweight)
+        # print(scslist)
+        #邮件位置的检查
+        mailawb1=request.POST.getlist('mailawb1')
+        mailawb2=request.POST.getlist('mailawb2')
+        mailawb3=request.POST.getlist('mailawb3')
+        maildstn1=request.POST.getlist('maildstn1')
+        maildstn2=request.POST.getlist('maildstn2')
+        maildstn3=request.POST.getlist('maildstn3')
+ 
+        #邮件输入内容检查
+        # 运单号位数
+        if len(mailawb1[0]) !=8 and len(mailawb1[0]) !=0 :
+            return HttpResponse('Mail1 awb number is wrong')
+        if len(mailawb2[0]) !=8 and len(mailawb2[0]) !=0 :
+            return HttpResponse('Mail2 awb number is wrong')
+        if len(mailawb3[0]) !=8 and len(mailawb3[0]) !=0 :
+            return HttpResponse('Mail3 awb number is wrong')
+        #检查8位是不是数字
+        #检查目的港是不是英语3个字符
+
+        #邮件目的港的检查
+        if maildstn1[0].upper() in america_list:
+            scslist.append('131-'+mailawb1[0])
+        if maildstn2[0].upper() in america_list:
+            scslist.append('131-'+mailawb2[0])
+        if maildstn3[0].upper() in america_list:
+            scslist.append('131-'+mailawb3[0])
+        
     return HttpResponse('scs result')
