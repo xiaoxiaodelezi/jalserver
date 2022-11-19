@@ -41,3 +41,24 @@ FR部分增加了cargosalesreport比对逻辑
 版本：Alpha 0.1.3
 
 外航scs的模块增加了邮件运单的输入，分批重量问题解决。scs_result的templates还在考虑如何写
+
+
+
+2022.11.19
+
+版本：Alpha 0.1.4
+
+cargo项目中新增了两个文件夹
+
+file_templates用来存放文件模板
+
+file_pool用来作为临时文件夹的总目录，每个临时文件夹用uuid4生成名字，用来存放每次功能运行需要的文件实例
+
+cargo的func函数增加了3个函数
+
+send_mail 发送邮件的模块
+
+mk_templates 在file_pool中生成一个临时文件夹的函数
+
+auxiliary_instance 通过调用辅材模板xlsx来生成一个辅材模板的实例，存在临时文件夹中
+

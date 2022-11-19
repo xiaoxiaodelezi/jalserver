@@ -1,8 +1,71 @@
 import io
 import pdfplumber
 import re
+import os
+import uuid
 
 #定义一些基本函数
+
+#邮件发送模块
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+def send_mail(toAddress, subject, mail_content, file_path='', filename=[]):
+    msg = MIMEMultipart()
+    msg['From'] = 'jlpvgdocument@hotmail.com'
+    msg['To'] = toAddress  # txt文件中的邮箱地址 添加收件人
+    msg['Subject'] = subject # 添加邮件主题
+    if mail_content != "":
+        mail_body = mail_content  # 添加邮件内容
+        msg.attach(MIMEText(mail_body, 'plain', 'utf-8'))  # 将邮件内容附加到邮件编码中
+    if file_path != "" or filename !=[]:
+        for file in filename:
+            message = MIMEText(open(file_path + file, "rb").read(), 'base64', 'utf-8')  # 附件文件
+            message.add_header('Content-Disposition', 'attachment', filename=file)  # 附件显示名称
+            msg.attach(message)  # 将附件附加到邮件编码中
+    # 邮件端口处理
+    s = smtplib.SMTP("smtp-mail.outlook.com", 587)
+    s.ehlo()  # Hostname to send for this command defaults to the fully qualified domain name of the local host.
+    s.starttls()  # Puts connection to SMTP server in TLS mode
+    # 发件人
+    fromAddress = 'jlpvgdocument@hotmail.com'  # sender
+    # 发件邮箱地址和密码
+    smtpLogin = 'jlpvgdocument@hotmail.com'
+    smtpPasswd = 'PVGFFU-003'
+    s.login(smtpLogin, smtpPasswd)
+    s.sendmail(fromAddress, toAddress.split(','), msg.as_string())
+    s.quit()
+
+
+#在file_pool中创建一个临时文件夹
+#返回包含路径（包含最后的"/"）
+def mk_tempdir():
+    new_dir=str(uuid.uuid4())
+    os.mkdir("./file_pool/"+new_dir)
+    return "./file_pool/"+new_dir+"/"
+
+
+#输入辅材信息，在file_pool的临时文件夹中生成一个辅材excel实例
+#返回生成为文件名，用来加入list，统一添加为邮件附件
+import openpyxl
+def auxiliary_instance(wood,bandage,skid,flight,date,agency,new_dir):
+    ttl_weight= bandage * 1.5 + wood * 1.6 + skid *25 
+    wb=openpyxl.load_workbook('./file_templates/auxiliary_materials.xlsx')
+    ws=wb["Sheet1"]
+    ws['D19']=bandage
+    ws['D21']=wood
+    ws['D20']=skid
+    ws['f22']=str(ttl_weight)+" KG"
+    ws['C14']=flight+"/"+date
+    ws['C16']=agency.upper()
+    file_name=agency.upper()+"_"+flight+"_"+date
+    wb.save("../file_pool/"+new_dir+file_name)
+    wb.close()
+    return file_name
+
+
+
 # 返回一个从二进制pdf中提取的字符串
 def getstrfrompdf(file):
     f=io.BytesIO(file) 
@@ -185,4 +248,6 @@ def extract_wa(str):
     # 7.nrev_trst的运单信息   dic[awb]=list
     
     return flightnumber,flightdate,arr_weight,getdetail(rev_local),getdetail(rev_trst),getdetail(nrev_local),getdetail(nrev_trst)
+
+
 
