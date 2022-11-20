@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 import re
+import datetime
+
+#从func中导入send_mail模块
+from .func import send_mail
 
 #从cargo/func中导入处理相关的函数
 #从pdf中提取字符串
@@ -105,11 +109,24 @@ def cgo_traffic_scsforotherairlines_result(request):
 
         #wd的出发内容
         file1=request.FILES.get('weightdep')
-        str=getstrfrompdf(file1.read()).split("\n")
+        str1=getstrfrompdf(file1.read()).split("\n")
         #获取航班信息
-        flightinfo=re.search('[0,9,A-Z]{2} {0,4}[0-9]{2,5}/[0-9]{1,2}-[A-Z]{3}-20[0-9]{2}',str[4])[0].split('/')
+        flightinfo=re.search('[0,9,A-Z]{2} {0,4}[0-9]{2,5}/[0-9]{1,2}-[A-Z]{3}-20[0-9]{2}',str1[4])[0].split('/')
         flightnumber=flightinfo[0]
         flightdate=flightinfo[1]
+        #获得星期几的结果，用于CK航班的号码确认
+        week_day=datetime.datetime.strptime(flightinfo[1],"%d-%b-%Y").weekday()
+        week_day_dic={
+            0:"CK 253",
+            1:"2",
+            2:"CK 241",
+            3:"4",
+            4:"CK 241",
+            5:"CK 241",
+            6:"7",
+        }
+        if flightnumber=="JL 6744":
+            flightnumber=week_day_dic[week_day]
         #获取运单信息
         # 需要发送scs的部分       
         scslist=[]
@@ -117,8 +134,11 @@ def cgo_traffic_scsforotherairlines_result(request):
         total_jlawb=0
         #总的日航重量
         total_jlweight=0
-        for item in str:         
+        #所有日航运单list,不包含邮件
+        total_awb_list=[]
+        for item in str1:         
             if item[:4]=='131-':
+                total_awb_list.append(item[:12])
                 total_jlawb+=1
                 if item[12:15]==" P ":
                     total_jlweight+=float(item.split(' ')[3].split("/")[0])
@@ -127,8 +147,7 @@ def cgo_traffic_scsforotherairlines_result(request):
                 dstn = re.search(' [A-Z]{3}-[A-Z]{3} ',item)[0].split(" ")[-2][4:]
                 if dstn in america_list:
                     scslist.append(item[:12])
-        # print(total_jlawb,total_jlweight)
-        # print(scslist)
+
         #邮件位置的检查
         mailawb1=request.POST.getlist('mailawb1')
         mailawb2=request.POST.getlist('mailawb2')
@@ -155,5 +174,27 @@ def cgo_traffic_scsforotherairlines_result(request):
             scslist.append('131-'+mailawb2[0])
         if maildstn3[0].upper() in america_list:
             scslist.append('131-'+mailawb3[0])
-        
-    return HttpResponse('scs result')
+
+        #邮件内容
+        scs_content=''
+        for item in scslist:
+            scs_content+=item+", "
+        content=''
+        if flightnumber[:2]=="CK" or flightnumber[:2]=="MU":
+            content+='TO COCC\n\n'
+        content+=flightnumber+"/"+flightdate+" 美国方面货物保函清单\n\n\n"
+        content+=scs_content+"\n\n\n"
+        content+="共 "+str(len(scslist))+"票\n"
+        content+="日本航空"
+        #发送给cocc美国保函
+        send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
+        #发送给自己的航班信息
+        content_jl=flightnumber+"/"+flightdate+'\n'
+        content_jl+='航班总运单数：'+str(total_jlawb)+'票\n'
+        content_jl+='航班总重量：'+str(total_jlweight)+'KG\n\n'
+        for item in total_awb_list:
+            content_jl+=item+'\n'
+        send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
+
+    return HttpResponse('scs info email ok')
+
