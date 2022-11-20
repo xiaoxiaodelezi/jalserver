@@ -62,3 +62,12 @@ mk_templates 在file_pool中生成一个临时文件夹的函数
 
 auxiliary_instance 通过调用辅材模板xlsx来生成一个辅材模板的实例，存在临时文件夹中
 
+
+
+
+
+2002.11.20
+
+版本： Alpha 0.1.5
+
+增加了外航SCS的逻辑，包含邮件发送机制。
