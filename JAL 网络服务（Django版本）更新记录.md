@@ -78,5 +78,14 @@ auxiliary_instance 通过调用辅材模板xlsx来生成一个辅材模板的实
 
 版本： Alpha 0.1.6
 
-从webserver中移植了uldstorage部分到项目中。
+从webserver中移植了uldstorage到项目中。
 
+
+
+
+
+2022.11.21
+
+版本：Alpha 0.1.7
+
+从webserver中移植了crosscheck到项目中。

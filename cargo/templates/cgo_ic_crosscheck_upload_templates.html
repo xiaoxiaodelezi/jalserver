@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULD Cross Check</title>
+</head>
+<body>
+    <form action="{% url 'ic_crosscheck_result'%}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    装机单（PDF）
+    <br>
+    <input type="file" accept=".pdf" name='loadinginstruction'>
+    <br>
+    <br>
+    <br>
+    出仓单（XLSX）
+    <br>
+    <input type="file" accept=".xls, .xlsx" name='warehouseuldlist'>
+    <br>
+    <br>
+    <input type="submit" name="submit">
+
+    </form>
+
+</body>
+</html>

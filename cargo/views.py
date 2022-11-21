@@ -6,6 +6,8 @@ import datetime
 
 from bs4 import BeautifulSoup
 import requests
+import pdfplumber
+import openpyxl
 
 #从func中导入send_mail模块
 from .func import send_mail
@@ -201,7 +203,7 @@ def cgo_traffic_scsforotherairlines_result(request):
     return HttpResponse('scs info email ok')
 
 # desk查看板箱信息
-def cgo_uldstorage_result(request):
+def cgo_desk_uldstorage_result(request):
     #登陆界面
     url="https://uldmanager.champ.aero/prod/acegilogin.jsp"
     headers={
@@ -247,3 +249,83 @@ def cgo_uldstorage_result(request):
         "uld_list":uld_list,
     }
     return render(request,"cgo_desk_uldstorage_result_templates.html",html_dict)
+
+
+def cgo_ic_homepage(request):
+    return render(request,'cgo_ic_homepage_templates.html')
+
+#ULD cross check 逻辑
+def cgo_ic_crosscheck_upload(request):
+    return render(request,'cgo_ic_crosscheck_upload_templates.html',{})
+
+def cgo_ic_crosscheck_result(request):
+    if request.method == 'POST':
+        li=request.FILES.get('loadinginstruction')
+        ex=request.FILES.get('warehouseuldlist')
+
+    #处理pdf
+    pdfpage=pdfplumber.open(li)
+    pdfstring=''
+    for page in pdfpage.pages:
+        pdfstring+=page.extract_text()
+    type_regx=re.compile('JA[0-9]{3,4}J')#机型
+
+    uld_regx=re.compile("[A-Z]{3}[0-9]{3,5}[A-Z]{2,3}[\s]*[A-Z]*[\s]*[0-9]*/[[\s]*[0-9]*")
+    uld_list=uld_regx.findall(pdfstring)
+    uld_weight_list={}
+    for item in uld_list:
+        uld_number_regx=re.compile("[A-Z]{3}[0-9]{3,5}[A-Z]{2,3}")
+        uld=uld_number_regx.findall(item)[0]
+        #修正PLA缺少一位0的错误
+        if "PLA" in uld:
+            uld=uld.replace("PLA","PLA0")
+        ###########
+        uld_weight_regx=re.compile("/[[\s]*[0-9]*")
+        weight=int(uld_weight_regx.findall(item)[0][1:])
+        uld_weight_list[uld]=weight
+
+    pdfpage.close()
+
+    #pdf信息check
+    # pdf_info_str=''
+    # for key in uld_weight_list:
+    #     pdf_info_str+=(key +"~~"+str(uld_weight_list[key])+"@@")
+    # return HttpResponse(pdf_info_str)
+    
+
+    #处理excel
+    wb=openpyxl.load_workbook(ex,data_only=True)
+    ws = wb['交接单']
+    # flight_num = ws['d3'].value.strip('/')
+    # flight_date = ws['e3'].value #class datetiem.datetime
+    uld_list_left = ws['c5:d21']
+    uld_list_right = ws['j5:k21']
+    uld_check_list_set = {}
+    for row in uld_list_left:
+        if row[0].value != None:
+            uld_check_list_set[row[0].value] = row[1].value
+    for row in uld_list_right:
+        if row[0].value != None:
+            uld_check_list_set[row[0].value] = row[1].value
+
+
+    # #excel信息check
+    # excel_info_str=''
+    # for key in uld_check_list_set:
+    #     excel_info_str+=(key +"~~"+str(uld_check_list_set[key])+"@@")
+    # return HttpResponse(excel_info_str)
+    
+
+    return_str=[]
+    for key in uld_weight_list:
+        if key in uld_check_list_set:
+            if uld_weight_list[key] != uld_check_list_set[key]:
+                return_str.append(key+' weight may be wrong.')
+        else:
+            return_str.append(key+' uld number may be wrong or in BLK')
+    if return_str==[]:
+        return_str.append('all check ok')
+
+    context={'return_str':return_str}
+
+    return render(request,'cgo_ic_crosscheck_result_templates.html',context)
