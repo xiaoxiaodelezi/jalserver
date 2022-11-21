@@ -66,8 +66,17 @@ auxiliary_instance 通过调用辅材模板xlsx来生成一个辅材模板的实
 
 
 
-2002.11.20
+2022.11.20
 
 版本： Alpha 0.1.5
 
 增加了外航SCS的逻辑，包含邮件发送机制。
+
+
+
+2022.11.21
+
+版本： Alpha 0.1.6
+
+从webserver中移植了uldstorage部分到项目中。
+

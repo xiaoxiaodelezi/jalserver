@@ -12,5 +12,5 @@ urlpatterns=[
     path('traffic_homepage',views.cgo_traffic_homepage,name='cgo_traffic_homepage'),
     path('traffic_scsforotherairlines_upload',views.cgo_traffic_scsforotherairlines_upload,name='cgo_traffic_scsforotherairlines_upload'),
     path('traffic_scsforotherairlines_result',views.cgo_traffic_scsforotherairlines_result,name='cgo_traffic_scsforotherairlines_result'),
-
+    path('desk_uldstorage_result',views.cgo_uldstorage_result,name='desk_uldstorage_result'),
 ]

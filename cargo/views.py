@@ -4,6 +4,9 @@ from django.http import HttpResponse
 import re
 import datetime
 
+from bs4 import BeautifulSoup
+import requests
+
 #从func中导入send_mail模块
 from .func import send_mail
 
@@ -98,15 +101,15 @@ def cgo_traffic_scsforotherairlines_upload(request):
     return render(request,'cgo_traffic_scsforotherairlines_upload_templates.html')
 
 def cgo_traffic_scsforotherairlines_result(request):
-    america_list=[
+
+    if request.method=="POST":
+        america_list=[
         'BOS','ORD','JFK','YVR','PDX','SEA','YYT','YUL','YHZ','YYC',
         'YYZ','YEG','DFW','AUS','LRD','MIA','IAH','ATL','MEM','SAT','MSY','BUF',
         'BWI','CHS','CLE','CLT','CMH','IAD','MCO','ORF','PHL','RDU',
         'ROC','TPA','JAX','BNA','CVG','DTW','IND','MCI',
         'MSP','PIT','SDF','STL','LAX','SLC','SFO','DEN','ELP','LAS','PHX','SAN',
-    ]
-    if request.method=="POST":
-
+        ]
         #wd的出发内容
         file1=request.FILES.get('weightdep')
         str1=getstrfrompdf(file1.read()).split("\n")
@@ -195,6 +198,52 @@ def cgo_traffic_scsforotherairlines_result(request):
         for item in total_awb_list:
             content_jl+=item+'\n'
         send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
-
     return HttpResponse('scs info email ok')
 
+# desk查看板箱信息
+def cgo_uldstorage_result(request):
+    #登陆界面
+    url="https://uldmanager.champ.aero/prod/acegilogin.jsp"
+    headers={
+    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 Edg/93.0.961.52"
+    }
+    session=requests.session()
+    res=session.get(url,headers=headers)
+    
+    #登陆完成界面
+    url="https://uldmanager.champ.aero/prod/j_acegi_security_check"
+    headers={
+    "Host": "uldmanager.champ.aero",
+    "Origin": "https://uldmanager.champ.aero",
+    "Referer": "https://uldmanager.champ.aero/prod/acegilogin.jsp",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 Edg/93.0.961.52",
+    }
+    data={
+    "j_username": "00746148",
+    "j_password": "Pvg123456",
+    "submit": "Submit",
+    }
+    res=session.post(url,headers=headers,data=data)
+    
+    #数据界面
+    url="https://uldmanager.champ.aero/prod/stationTotals.do?method=searchStationTotals&stCodeSearchCriteria=PVG&listType=type&lastPageNumber=0&currentPageNumber=1&recordsPerPage=15&totalNumberOfRecord=0&prevPageNumber=0&flightInd=I"
+    res=session.get(url)
+    res=res.content.decode()
+    
+    #提取数据
+    bs=BeautifulSoup(res,'html.parser')
+    uld = bs.find_all("tr",id="rec0op0")
+    uld_inventory={}
+    for item in uld:
+        data = item.find_all('td')
+        uld_inventory[data[0].get_text().strip()]=data[2].get_text().strip()
+   
+    uld_list=[]
+    for key in uld_inventory:
+        uld_list.append(key.ljust(10)+uld_inventory[key].rjust(4))
+        uld_list.append(' '.rjust(14))
+
+    html_dict={
+        "uld_list":uld_list,
+    }
+    return render(request,"cgo_desk_uldstorage_result_templates.html",html_dict)
