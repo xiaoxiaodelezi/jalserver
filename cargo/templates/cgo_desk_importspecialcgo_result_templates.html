@@ -8,17 +8,13 @@
 <P2>JSP</P2>
 <br>
 {% for awb,details in revlocal.items %}
-    <!-- {% for shc in details.0 %}
-        {% if shc == 'JSP' %}
-            <p2>{{awb}}</p2>
-        {% endif %}
-    {% endfor %} -->
     {% if 'JSP' in details.0 %}
-        <p2>{{awb}}:{{details.4}},{{details.5}}</p2>
+        <p2>{{awb}}&nbsp&nbsp&nbsp&nbsp{{details.4}}P&nbsp&nbsp&nbsp&nbsp{{details.5}}KG</p2>
         <br>
         {% for key,value in details.1.items%}
-            <p2>{{key}},{{value.0}},{{value.1}}</p2>
+            <p2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{key}}&nbsp&nbsp&nbsp&nbsp&nbsp{{value.0}}P&nbsp&nbsp&nbsp&nbsp&nbsp{{value.1}}KG</p2>
         {% endfor %}
+        <br><p2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp----------------------------------------------------------------</p2>
         <br>
     {% endif %}
 {% endfor %}

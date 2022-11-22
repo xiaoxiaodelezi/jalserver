@@ -89,3 +89,11 @@ auxiliary_instance 通过调用辅材模板xlsx来生成一个辅材模板的实
 版本：Alpha 0.1.7
 
 从webserver中移植了crosscheck到项目中。
+
+
+
+2022.11.22
+
+版本：Alpha 0.1.8
+
+重新考虑了特说货物部分的逻辑函数返回部分。只是修改了逻辑函数，返回值和对应的templates还没有修改好。

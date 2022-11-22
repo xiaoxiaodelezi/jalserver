@@ -246,7 +246,78 @@ def extract_wa(str):
     # 5.rev_trst的运单信息    dic[awb]=list
     # 6.nrev_local的运单信息  dic[awb]=list
     # 7.nrev_trst的运单信息   dic[awb]=list
+
+    jsp_list=[]
+    jca_list=[]
+    temperature_list=[]
+    bup_list=[]
+    jph_list=[]
+    special_uld_list=[]
+    special_uld_set=['RAP',"AKN","RKN"]
+    temperature_request_list=['COL',"PER","ICE"]
+    special_code_on_flight=[]
+
+    for awb_kind in [rev_local,rev_trst,nrev_local,nrev_trst]:
+        awb_kind_dic=getdetail(awb_kind)
+        for key in getdetail(awb_kind):
+            for sp in awb_kind_dic[key][0]:
+                special_code_on_flight.append(sp)
+
+            if "JSP" in awb_kind_dic[key][0]:
+                awb_uld_list=[]
+                for uld in awb_kind_dic[key][1]:
+                    for i in special_uld_set:
+                        if i in uld:
+                            special_uld_list.append(uld)
+                    awb_uld_list.append([uld,awb_kind_dic[key][1][uld][0],awb_kind_dic[key][1][uld][1]])
+                jsp_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
+            
+            if "BUP" in awb_kind_dic[key][0]:
+                awb_uld_list=[]
+                for uld in awb_kind_dic[key][1]:
+                    for i in special_uld_set:
+                        if i in uld:
+                            special_uld_list.append(uld)
+                    awb_uld_list.append([uld,awb_kind_dic[key][1][uld][0],awb_kind_dic[key][1][uld][1]])
+                bup_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
+        
+            if "JCA" in awb_kind_dic[key][0]:
+                awb_uld_list=[]
+                for uld in awb_kind_dic[key][1]:
+                    for i in special_uld_set:
+                        if i in uld:
+                            special_uld_list.append(uld)
+                    awb_uld_list.append([uld,awb_kind_dic[key][1][uld][0],awb_kind_dic[key][1][uld][1]])
+                jca_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
+
+            if "JPH" in awb_kind_dic[key][0]:
+                awb_uld_list=[]
+                for uld in awb_kind_dic[key][1]:
+                    for i in special_uld_set:
+                        if i in uld:
+                            special_uld_list.append(uld)
+                    awb_uld_list.append([uld,awb_kind_dic[key][1][uld][0],awb_kind_dic[key][1][uld][1]])
+                jph_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
     
+            for temperature_request in temperature_request_list :   
+                if temperature_request in awb_kind_dic[key][0]:
+                    awb_uld_list=[]
+                    for uld in awb_kind_dic[key][1]:
+                        for i in special_uld_set:
+                            if i in uld:
+                                special_uld_list.append(uld)
+                        awb_uld_list.append([uld,awb_kind_dic[key][1][uld][0],awb_kind_dic[key][1][uld][1]])
+                    temperature_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
+                    break      
+        
+    
+    #test部分
+    for item in jsp_list:
+        print(item)
+    print(special_uld_list)
+    print(special_code_on_flight)
+
+    #修改了special的逻辑，考虑返回值的使用
     return flightnumber,flightdate,arr_weight,getdetail(rev_local),getdetail(rev_trst),getdetail(nrev_local),getdetail(nrev_trst)
 
 
