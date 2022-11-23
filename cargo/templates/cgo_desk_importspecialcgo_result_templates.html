@@ -5,18 +5,17 @@
 <br>
 <p2>日期：&nbsp&nbsp&nbsp {{flightdate}}</p2>
 <br>
-<P2>JSP</P2>
+<p>********************************</p>
+<p>JSP</p>
+<p1>*******************************</p>
 <br>
-{% for awb,details in revlocal.items %}
-    {% if 'JSP' in details.0 %}
-        <p2>{{awb}}&nbsp&nbsp&nbsp&nbsp{{details.4}}P&nbsp&nbsp&nbsp&nbsp{{details.5}}KG</p2>
-        <br>
-        {% for key,value in details.1.items%}
-            <p2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{key}}&nbsp&nbsp&nbsp&nbsp&nbsp{{value.0}}P&nbsp&nbsp&nbsp&nbsp&nbsp{{value.1}}KG</p2>
+{% for jsp in jsp_list %}
+    {{jsp.0}}&nbsp&nbsp&nbsp{{jsp.5}}P&nbsp&nbsp&nbsp{{jsp.6}}KG
+    <br>
+    {% for uld in jsp.2 %}
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG   
         {% endfor %}
-        <br><p2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp----------------------------------------------------------------</p2>
-        <br>
-    {% endif %}
+    <p>---------------------------</p>
 {% endfor %}
 <br>
 

@@ -34,17 +34,22 @@ def cgo_desk_importspecialcgo_result(request):
         #读取的myfile要转为二进制文件才能被pdfplumber打开
         #转为二进制文件的方法已经包含在getstrfrompdf中
         str=getstrfrompdf(myfile.read())
-        flightnumber,flightdate,arr_weight,revlocal,revtrst,nrevlocal,nrevtrst=extract_wa(str)
+        flightnumber,flightdate,arr_weight,jsp_list,jca_list,temperature_list,bup_list,jph_list,special_uld_list,special_code_on_flight,trst_list=extract_wa(str)
             
         context={
             'flightnumber':flightnumber,
             'flightdate':flightdate,
             'arr_weight':arr_weight,
-            'revlocal':revlocal,
-            'revtrst':revtrst,
-            'nrevlocal':nrevlocal,
-            'nrevtrst':nrevtrst,
+            'jsp_list':jsp_list,
+            'jca_list':jca_list,
+            'temperature_list':temperature_list,
+            'bup_list':bup_list,
+            'jph_list':jph_list,
+            'special_uld_list':special_uld_list,
+            'special_code_on_flight':special_code_on_flight,
+            'trst_list':trst_list,
         }
+        
     return render(request,'cgo_desk_importspecialcgo_result_templates.html',context)
 
 

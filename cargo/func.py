@@ -253,13 +253,16 @@ def extract_wa(str):
     bup_list=[]
     jph_list=[]
     special_uld_list=[]
+    special_code_on_flight=[]
+    trst_list=[]    
     special_uld_set=['RAP',"AKN","RKN"]
     temperature_request_list=['COL',"PER","ICE"]
-    special_code_on_flight=[]
 
     for awb_kind in [rev_local,rev_trst,nrev_local,nrev_trst]:
         awb_kind_dic=getdetail(awb_kind)
         for key in getdetail(awb_kind):
+            if awb_kind_dic[key][3] !="PVG":
+                trst_list.append([key,awb_kind_dic[key][3]])
             for sp in awb_kind_dic[key][0]:
                 special_code_on_flight.append(sp)
 
@@ -310,15 +313,9 @@ def extract_wa(str):
                     temperature_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
                     break      
         
-    
-    #test部分
-    for item in jsp_list:
-        print(item)
-    print(special_uld_list)
-    print(special_code_on_flight)
 
     #修改了special的逻辑，考虑返回值的使用
-    return flightnumber,flightdate,arr_weight,getdetail(rev_local),getdetail(rev_trst),getdetail(nrev_local),getdetail(nrev_trst)
+    return flightnumber,flightdate,arr_weight,jsp_list,jca_list,temperature_list,bup_list,jph_list,special_uld_list,special_code_on_flight,trst_list
 
 
 
