@@ -14,9 +14,49 @@
     <br>
     {% for uld in jsp.2 %}
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG   
+        <br>
         {% endfor %}
     <p>---------------------------</p>
 {% endfor %}
 <br>
-
-
+<p1>*******************************</p>
+<br>
+<p>BUP</p>
+<p1>*******************************</p>
+<br>
+{% for bup in bup_list %}
+    {{bup.0}}&nbsp&nbsp&nbsp{{bup.5}}P&nbsp&nbsp&nbsp{{bup.6}}KG
+    <br>
+    {% for uld in bup.2 %}
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG   
+        <br>       
+        {% endfor %}
+    <p>---------------------------</p>
+{% endfor %}
+<br>
+<p1>*******************************</p>
+<p>Temperature_Request</p>
+<p1>*******************************</p>
+<br>
+{% for temperature in temperature_list %}
+    {{temperature.0}}&nbsp&nbsp&nbsp{{temperature.5}}P&nbsp&nbsp&nbsp{{temperature.6}}KG
+    <br>
+    {% for uld in temperature.2 %}
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG   
+        <br>            
+        {% endfor %}
+    <p>---------------------------</p>
+{% endfor %}
+<p1>*******************************</p>
+    <p>JPH</p>
+    <p1>*******************************</p>
+    <br>
+    {% for jph in jph_list %}
+        {{jph.0}}&nbsp&nbsp&nbsp{{jph.5}}P&nbsp&nbsp&nbsp{{jph.6}}KG
+        <br>
+        {% for uld in jph.2 %}
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG   
+            <br>            
+            {% endfor %}
+        <p>---------------------------</p>
+    {% endfor %}

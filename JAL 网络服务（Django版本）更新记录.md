@@ -105,3 +105,11 @@ auxiliary_instance 通过调用辅材模板xlsx来生成一个辅材模板的实
 版本：Alpha 0.1.9
 
 特殊货物的逻辑函数部分重写完成，templates完成了修改，但也只做了JSP一个类别作为参考。具体什么形式的templates还需要经过和相关部门讨论才能最终决定。
+
+
+
+2022.11.24
+
+版本：Alpha 0.1.9.1
+
+尝试特殊货物result的templates的修改，不太满意。
