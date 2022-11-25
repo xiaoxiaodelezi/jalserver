@@ -197,18 +197,32 @@ def cgo_traffic_scsforotherairlines_result(request):
             content+='TO COCC\n\n'
         content+=flightnumber+"/"+flightdate+" 美国方面货物保函清单\n\n\n"
         content+=scs_content+"\n\n\n"
-        content+="共 "+str(len(scslist))+"票\n"
+        content+="共 "+str(len(scslist))+"票\n\n\n"
         content+="日本航空"
         #发送给cocc美国保函
-        send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
+        cocc_result="OK"
+        try:
+            send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
+        except:
+            cocc_result="NOT OK"
+
         #发送给自己的航班信息
         content_jl=flightnumber+"/"+flightdate+'\n'
         content_jl+='航班总运单数：'+str(total_jlawb)+'票\n'
         content_jl+='航班总重量：'+str(total_jlweight)+'KG\n\n'
         for item in total_awb_list:
             content_jl+=item+'\n'
-        send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
-    return HttpResponse('scs info email ok')
+        jl_result="OK"
+        try:
+            send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
+        except:
+            jl_result="NOT OK"
+
+        context={
+            'cocc_result':cocc_result,
+            'jl_result':jl_result,
+        }
+    return render(request,'cgo_traffic_scsforotherairlines_result_templates.html',context)
 
 # desk查看板箱信息
 def cgo_desk_uldstorage_result(request):

@@ -113,3 +113,11 @@ auxiliary_instance 通过调用辅材模板xlsx来生成一个辅材模板的实
 版本：Alpha 0.1.9.1
 
 尝试特殊货物result的templates的修改，不太满意。
+
+
+
+2022.11.25
+
+版本：Alpha 0.1.10
+
+给外航的保函申请项目：和相关部门确认了信息的格式，在views中添加了sendmail的try except结构，增加了result的templates反馈两个邮件发送结果。
