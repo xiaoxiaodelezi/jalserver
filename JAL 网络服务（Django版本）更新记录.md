@@ -121,3 +121,11 @@ auxiliary_instance 通过调用辅材模板xlsx来生成一个辅材模板的实
 版本：Alpha 0.1.10
 
 给外航的保函申请项目：和相关部门确认了信息的格式，在views中添加了sendmail的try except结构，增加了result的templates反馈两个邮件发送结果。
+
+
+
+2022.11.26
+
+版本：Alpha 1.0.0
+
+添加了uwsgi相关信息。
