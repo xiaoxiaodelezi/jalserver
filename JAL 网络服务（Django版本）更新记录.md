@@ -145,3 +145,12 @@ auxiliary_instance 通过调用辅材模板xlsx来生成一个辅材模板的实
 版本：Alpha 0.1.11
 
 uwsgi设置失败，删除uwsgi的相关内容，重新回到0.1版本。
+
+
+
+2022.11.27
+
+版本：Alpha 0.2
+
+uwsgi配置调试完成
+
