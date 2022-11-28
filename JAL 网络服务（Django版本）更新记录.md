@@ -162,3 +162,11 @@ uwsgi配置调试完成
 
 nginx适配完成，uwsgi改为socket，但项目需要在服务器上切换chdir内容。
 
+
+
+2022.11.27
+
+版本：Alpha 0.2.2
+
+特殊货物添加了val、hum、avi
+

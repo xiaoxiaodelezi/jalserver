@@ -254,7 +254,10 @@ def extract_wa(str):
     jph_list=[]
     special_uld_list=[]
     special_code_on_flight=[]
-    trst_list=[]    
+    trst_list=[]
+    avi_list=[]
+    hum_list=[]
+    val_list=[]    
     special_uld_set=['RAP',"AKN","RKN"]
     temperature_request_list=['COL',"PER","ICE"]
 
@@ -302,6 +305,33 @@ def extract_wa(str):
                     awb_uld_list.append([uld,awb_kind_dic[key][1][uld][0],awb_kind_dic[key][1][uld][1]])
                 jph_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
     
+            if "HUM" in awb_kind_dic[key][0]:
+                awb_uld_list=[]
+                for uld in awb_kind_dic[key][1]:
+                    for i in special_uld_set:
+                        if i in uld:
+                            special_uld_list.append(uld)
+                    awb_uld_list.append([uld,awb_kind_dic[key][1][uld][0],awb_kind_dic[key][1][uld][1]])
+                hum_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
+    
+            if "VAL" in awb_kind_dic[key][0]:
+                awb_uld_list=[]
+                for uld in awb_kind_dic[key][1]:
+                    for i in special_uld_set:
+                        if i in uld:
+                            special_uld_list.append(uld)
+                    awb_uld_list.append([uld,awb_kind_dic[key][1][uld][0],awb_kind_dic[key][1][uld][1]])
+                val_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
+    
+            if "AVI" in awb_kind_dic[key][0]:
+                awb_uld_list=[]
+                for uld in awb_kind_dic[key][1]:
+                    for i in special_uld_set:
+                        if i in uld:
+                            special_uld_list.append(uld)
+                    awb_uld_list.append([uld,awb_kind_dic[key][1][uld][0],awb_kind_dic[key][1][uld][1]])
+                avi_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
+    
             for temperature_request in temperature_request_list :   
                 if temperature_request in awb_kind_dic[key][0]:
                     awb_uld_list=[]
@@ -315,7 +345,7 @@ def extract_wa(str):
         
 
     #修改了special的逻辑，考虑返回值的使用
-    return flightnumber,flightdate,arr_weight,jsp_list,jca_list,temperature_list,bup_list,jph_list,special_uld_list,special_code_on_flight,trst_list
+    return flightnumber,flightdate,arr_weight,jsp_list,jca_list,temperature_list,bup_list,jph_list,special_uld_list,special_code_on_flight,trst_list,val_list,hum_list,avi_list
 
 
 
