@@ -5,58 +5,19 @@
 <br>
 <p2>日期：&nbsp&nbsp&nbsp {{flightdate}}</p2>
 <br>
-<p>********************************</p>
-<p>JSP</p>
-<p1>*******************************</p>
 <br>
-{% for jsp in jsp_list %}
-    {{jsp.0}}&nbsp&nbsp&nbsp{{jsp.5}}P&nbsp&nbsp&nbsp{{jsp.6}}KG
-    <br>
-    {% for uld in jsp.2 %}
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG   
-        <br>
-        {% endfor %}
-    <p>---------------------------</p>
-{% endfor %}
+<p>*****到达特殊ULD清单*****</p>
+<p>AKN12345JL 操作指示</p>
 <br>
-<p1>*******************************</p>
+<p>*****北货站留场清单*****</p>
+<p>AVI</p>
+<p>HUM</p>
+<p>VAL</p>
 <br>
-<p>BUP</p>
-<p1>*******************************</p>
+<p>*****温控要求货物清单*****</p>
+<p>运单号  件数 重量 是否整板  温控要求 备注</p>
+<p>    uld pcs weight</p>
 <br>
-{% for bup in bup_list %}
-    {{bup.0}}&nbsp&nbsp&nbsp{{bup.5}}P&nbsp&nbsp&nbsp{{bup.6}}KG
-    <br>
-    {% for uld in bup.2 %}
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG   
-        <br>       
-        {% endfor %}
-    <p>---------------------------</p>
-{% endfor %}
-<br>
-<p1>*******************************</p>
-<p>Temperature_Request</p>
-<p1>*******************************</p>
-<br>
-{% for temperature in temperature_list %}
-    {{temperature.0}}&nbsp&nbsp&nbsp{{temperature.5}}P&nbsp&nbsp&nbsp{{temperature.6}}KG
-    <br>
-    {% for uld in temperature.2 %}
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG   
-        <br>            
-        {% endfor %}
-    <p>---------------------------</p>
-{% endfor %}
-<p1>*******************************</p>
-    <p>JPH</p>
-    <p1>*******************************</p>
-    <br>
-    {% for jph in jph_list %}
-        {{jph.0}}&nbsp&nbsp&nbsp{{jph.5}}P&nbsp&nbsp&nbsp{{jph.6}}KG
-        <br>
-        {% for uld in jph.2 %}
-            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG   
-            <br>            
-            {% endfor %}
-        <p>---------------------------</p>
-    {% endfor %}
+<p>*****物流BUP货物清单*****</p>
+<p>运单号</p>
+<p>  所在板箱</p>

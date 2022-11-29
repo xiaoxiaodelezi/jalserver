@@ -170,3 +170,11 @@ nginx适配完成，uwsgi改为socket，但项目需要在服务器上切换chdi
 
 特殊货物添加了val、hum、avi
 
+
+
+2022.11.27
+
+版本：Alpha 0.2.3
+
+重写了特殊货物result的templates
+
