@@ -164,7 +164,7 @@ nginx适配完成，uwsgi改为socket，但项目需要在服务器上切换chdi
 
 
 
-2022.11.27
+2022.11.28
 
 版本：Alpha 0.2.2
 
@@ -172,9 +172,21 @@ nginx适配完成，uwsgi改为socket，但项目需要在服务器上切换chdi
 
 
 
-2022.11.27
+2022.11.29
 
 版本：Alpha 0.2.3
 
 重写了特殊货物result的templates
+
+
+
+2022.11.30
+
+版本：Alpha 0.2.4
+
+重写了特殊货物result的templates
+
+JPH现在归为温控货物。
+
+AVI,JCA,JPH,BUP,COL,等测试由于数据量少，暂时还没有办法进行。需要在随后的工作中进行追踪。
 

@@ -259,15 +259,21 @@ def extract_wa(str):
     hum_list=[]
     val_list=[]    
     special_uld_set=['RAP',"AKN","RKN"]
-    temperature_request_list=['COL',"PER","ICE"]
+    temperature_request_list=['COL',"PER","ICE","JPH"]
 
     for awb_kind in [rev_local,rev_trst,nrev_local,nrev_trst]:
         awb_kind_dic=getdetail(awb_kind)
+
         for key in getdetail(awb_kind):
             if awb_kind_dic[key][3] !="PVG":
                 trst_list.append([key,awb_kind_dic[key][3]])
             for sp in awb_kind_dic[key][0]:
                 special_code_on_flight.append(sp)
+
+            for suld in special_uld_set:
+                for item in awb_kind_dic[key][1]:
+                    if suld in item:
+                        special_uld_list.append(item)
 
             if "JSP" in awb_kind_dic[key][0]:
                 awb_uld_list=[]
@@ -342,10 +348,9 @@ def extract_wa(str):
                         awb_uld_list.append([uld,awb_kind_dic[key][1][uld][0],awb_kind_dic[key][1][uld][1]])
                     temperature_list.append([key,awb_kind_dic[key][0],awb_uld_list,awb_kind_dic[key][2],awb_kind_dic[key][3],awb_kind_dic[key][4],awb_kind_dic[key][5]])
                     break      
-        
 
     #修改了special的逻辑，考虑返回值的使用
-    return flightnumber,flightdate,arr_weight,jsp_list,jca_list,temperature_list,bup_list,jph_list,special_uld_list,special_code_on_flight,trst_list,val_list,hum_list,avi_list
+    return flightnumber,flightdate,arr_weight,jsp_list,jca_list,temperature_list,bup_list,jph_list,list(set(special_uld_list)),special_code_on_flight,trst_list,val_list,hum_list,avi_list
 
 
 

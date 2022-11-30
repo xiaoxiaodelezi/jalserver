@@ -7,17 +7,82 @@
 <br>
 <br>
 <p>*****到达特殊ULD清单*****</p>
-<p>AKN12345JL 操作指示</p>
-<br>
+{% for uld in special_uld_list %}
+    {{uld}}<br>
+{% endfor %}
+<p>----------------------------------------------</p>
+<p>*****到达精密仪器货物*****</p>
+{% for jca in jca_list %}
+    {{jca.0}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{jca.5}}P<br>
+    {%for uld in jca.2%}
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P<br>
+    {%endfor%}
+    <br>--------- 
+    <br>
+{% endfor %}
+
+<p>----------------------------------------------</p>
 <p>*****北货站留场清单*****</p>
-<p>AVI</p>
-<p>HUM</p>
-<p>VAL</p>
-<br>
+{% if avi_list  %}
+<p>---AVI---</p>
+    {%for avi in avi_list%}
+        {{avi.0}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{avi.5}}P&nbsp&nbsp&nbsp{{avi.6}}K
+        <br>
+        {%for uld in avi.2%}
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG<br>
+        {%endfor%}
+    {% endfor %}
+{% endif %}
+
+{% if hum_list  %}
+<p>---HUM---</p>
+    {%for hum in hum_list%}
+        {{hum.0}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{hum.5}}P&nbsp&nbsp&nbsp{{hum.6}}K
+        <br>
+        {%for uld in hum.2%}
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG<br>
+        {%endfor%}
+    {% endfor %}
+{% endif %}
+
+{% if val_list  %}
+<p>---VAL---</p>
+    {%for val in val_list%}
+        {{val.0}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{val.5}}P&nbsp&nbsp&nbsp{{val.6}}K
+        <br>
+        {%for uld in val.2%}
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG<br>
+        {%endfor%}
+    {% endfor %}
+{% endif %}
+<p>----------------------------------------------</p>
+
 <p>*****温控要求货物清单*****</p>
-<p>运单号  件数 重量 是否整板  温控要求 备注</p>
-<p>    uld pcs weight</p>
-<br>
+{% for temperature in temperature_list %}
+    {{temperature.0}}&nbsp&nbsp&nbsp&nbsp&nbsp{{temperature.5}}P&nbsp&nbsp&nbsp&nbsp&nbsp{{temperature.6}}K&nbsp&nbsp&nbsp&nbsp&nbsp整板交接：是/否&nbsp&nbsp&nbsp&nbsp&nbsp温控要求：常温/冷藏/冷冻/深冻&nbsp&nbsp&nbsp&nbsp&nbsp备注：
+    {%for uld in temperature.2%}
+        <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG
+    {%endfor%}  
+    <br>--------- 
+    <br>
+{% endfor %}
+<p>----------------------------------------------</p>
+
 <p>*****物流BUP货物清单*****</p>
-<p>运单号</p>
-<p>  所在板箱</p>
+{% for bup in bup_list%}
+    {% if bup in temperature_list %}
+    {% else %}
+        {{bup.0}}&nbsp&nbsp&nbsp&nbsp&nbsp{{bup.5}}P&nbsp&nbsp&nbsp&nbsp&nbsp{{bup.6}}K&nbsp&nbsp&nbsp&nbsp&nbsp代理：&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp交接方式：送代理仓库/送物流理货&nbsp&nbsp&nbsp&nbsp&nbsp备注：
+        {%for uld in bup.2%}
+            <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P
+        {%endfor%}         
+    {%endif%}
+    <br>--------- 
+    <br>    
+{% endfor %}
+<p>----------------------------------------------</p>
+<p>*****物流JSP货物清单*****</p>
+{% for jsp in jsp_list %}
+    {{jsp.0}}<br>
+{% endfor %}
+<br>
