@@ -205,7 +205,7 @@ def cgo_traffic_scsforotherairlines_result(request):
         #发送给cocc美国保函
         cocc_result="OK"
         try:
-            send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
+            send_mail('cocc@ceair.com,pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
         except:
             cocc_result="NOT OK"
 
@@ -217,7 +217,7 @@ def cgo_traffic_scsforotherairlines_result(request):
             content_jl+=item+'\n'
         jl_result="OK"
         try:
-            send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
+            send_mail('pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
         except:
             jl_result="NOT OK"
 
