@@ -46,7 +46,7 @@ def cgo_desk_importspecialcgo_result(request):
             'bup_list':bup_list,
             'jph_list':jph_list,
             'special_uld_list':special_uld_list,
-            'special_code_on_flight':list[set(special_code_on_flight)],
+            'special_code_on_flight':list(set(special_code_on_flight)),
             'trst_list':trst_list,
             'val_list':val_list,
             'hum_list':hum_list,

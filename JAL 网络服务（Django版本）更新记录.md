@@ -231,3 +231,20 @@ AVI,JCA,JPH,BUP,COL,等测试由于数据量少，暂时还没有办法进行。
 版本：Alpha 1.1.2
 
 修正了外航保函中目的港提取的bug
+
+
+
+2022.12.3
+
+版本：Alpha 1.1.3
+
+修正了中专卡车的信息提取bug，修改了特殊货物result templates的反馈
+
+
+
+2022.12.3
+
+版本：Alpha 1.1.4
+
+修正了specialcodelist的要给bug
+
