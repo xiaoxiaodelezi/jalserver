@@ -123,6 +123,7 @@ def extract_wa(str):
     nrevlocal=0
     nrevtrst=0
     grandtotal=0
+
     #获取各个锚定位置的信息
     for i in range(0,len(original_list)):
         if "<REV Local>" in original_list[i]:
@@ -135,6 +136,9 @@ def extract_wa(str):
             nrevtrst=i
         if "GRAND TOTAL" in original_list[i]:
             grandtotal=i
+
+    # print(revtrst)
+
 
     #初始化各个类型运单的字符串     
     rev_local = ""
@@ -261,12 +265,12 @@ def extract_wa(str):
     special_uld_set=['RAP',"AKN","RKN"]
     temperature_request_list=['COL',"PER","ICE","JPH"]
 
-    for awb_kind in [rev_local,rev_trst,nrev_local,nrev_trst]:
+
+
+    for awb_kind in [rev_local,nrev_local]:
         awb_kind_dic=getdetail(awb_kind)
 
         for key in getdetail(awb_kind):
-            if awb_kind_dic[key][3] !="PVG":
-                trst_list.append([key,awb_kind_dic[key][3]])
             for sp in awb_kind_dic[key][0]:
                 special_code_on_flight.append(sp)
 

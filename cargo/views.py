@@ -141,6 +141,8 @@ def cgo_traffic_scsforotherairlines_result(request):
             5:"CK 241",
             6:"7",
         }
+
+
         if flightnumber=="JL 6744":
             flightnumber=week_day_dic[week_day]
         #获取运单信息
@@ -160,7 +162,9 @@ def cgo_traffic_scsforotherairlines_result(request):
                     total_jlweight+=float(item.split(' ')[3].split("/")[0])
                 else:
                     total_jlweight+=float(re.match('[0-9]{3}-[0-9]{8} [0-9]{1,} [0-9]{1,}.[0-9]{1,}',item)[0].split(" ")[-1])
-                dstn = re.search(' [A-Z]{3}-[A-Z]{3} ',item)[0].split(" ")[-2][4:]
+                dstn = re.search(' [A-Z]{3}-[A-Z]{3}',item)[0].split(" ")[-1][4:]
+                
+
                 if dstn in america_list:
                     scslist.append(item[:12])
 
@@ -205,7 +209,10 @@ def cgo_traffic_scsforotherairlines_result(request):
         #发送给cocc美国保函
         cocc_result="OK"
         try:
+            # 项目地址
             send_mail('cocc@ceair.com,pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
+            # test邮箱地址
+            # send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
         except:
             cocc_result="NOT OK"
 
@@ -217,7 +224,10 @@ def cgo_traffic_scsforotherairlines_result(request):
             content_jl+=item+'\n'
         jl_result="OK"
         try:
+            # 项目地址
             send_mail('pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
+            # test邮箱地址
+            # send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
         except:
             jl_result="NOT OK"
 
