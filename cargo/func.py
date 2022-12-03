@@ -137,8 +137,6 @@ def extract_wa(str):
         if "GRAND TOTAL" in original_list[i]:
             grandtotal=i
 
-    # print(revtrst)
-
 
     #初始化各个类型运单的字符串     
     rev_local = ""
@@ -150,7 +148,7 @@ def extract_wa(str):
         rev_local = rev_local + original_list[i].strip() +" "
     rev_local=rev_local.strip()
     
-    for i in range(revtrst+1,revtrst):
+    for i in range(revtrst+1,nrevlocal):
         rev_trst = rev_trst + original_list[i].strip() + " "
     rev_trst = rev_trst.strip()
 
@@ -161,6 +159,20 @@ def extract_wa(str):
     for i in range(nrevtrst+1,grandtotal-1):
         nrev_trst = nrev_trst + original_list[i].strip() + " "
     nrev_trst = nrev_trst.strip()
+
+
+    #收集转运航班信息
+    trst_list=[]
+    trststr=rev_trst.strip()+" "+nrev_trst.strip()
+    if trststr != "":
+        trststr_list=trststr.split(";")[1:]
+        for item in trststr_list:
+            trstawb=item[:13]
+            trstdst=re.search("[A-Z]{3}-[A-Z]{3}",item)[0].split("-")[1]
+            contruck=re.search("Connection: [A-Z]{2}[ ]{0,1}[0-9]{2,4}/[0-9]{1,2}[A-Z]{3}",item)[0]
+            trst_list.append([trstawb,trstdst,contruck])
+
+
 
     #定义一个函数，用于从一个字符串中获得单个运单的信息
     #运单号，出发到达港，特殊代码，所在板箱和重量信息
@@ -258,7 +270,7 @@ def extract_wa(str):
     jph_list=[]
     special_uld_list=[]
     special_code_on_flight=[]
-    trst_list=[]
+
     avi_list=[]
     hum_list=[]
     val_list=[]    
