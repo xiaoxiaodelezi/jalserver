@@ -127,7 +127,7 @@ def cgo_traffic_scsforotherairlines_result(request):
         file1=request.FILES.get('weightdep')
         str1=getstrfrompdf(file1.read()).split("\n")
         #获取航班信息
-        flightinfo=re.search('[0,9,A-Z]{2} {0,4}[0-9]{2,5}/[0-9]{1,2}-[A-Z]{3}-20[0-9]{2}',str1[4])[0].split('/')
+        flightinfo=re.search('[0-9,A-Z]{2} {0,4}[0-9]{2,5}/[0-9]{1,2}-[A-Z]{3}-20[0-9]{2}',str1[4])[0].split('/')
         flightnumber=flightinfo[0]
         flightdate=flightinfo[1]
         #获得星期几的结果，用于CK航班的号码确认
@@ -202,15 +202,25 @@ def cgo_traffic_scsforotherairlines_result(request):
         content=''
         if flightnumber[:2]=="CK" or flightnumber[:2]=="MU":
             content+='TO COCC\n\n'
+        if flightnumber[:2]=="5X":
+            content+='TO UPS\n\n'
+
+        
         content+=flightnumber+"/"+flightdate+" 美国方面货物保函清单\n\n\n"
         content+=scs_content+"\n\n\n"
         content+="共 "+str(len(scslist))+"票\n\n\n"
         content+="日本航空"
         #发送给cocc美国保函
         cocc_result="OK"
-        try:
-            # 项目地址
-            send_mail('pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
+        upsaddress='pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com'
+        ckaddress='cocc@ceair.com,pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com'
+        try:          
+            if flightnumber[:2]=="5X":
+                send_address=upsaddress
+            if flightnumber[:2]=="CK" or flightnumber[:2]=="MU":
+                send_address=ckaddress 
+            # 项目地址    
+            send_mail(send_address,flightnumber+"/"+flightdate+" 美国方面货物保函",content)
             # test邮箱地址
             # send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
         except:
