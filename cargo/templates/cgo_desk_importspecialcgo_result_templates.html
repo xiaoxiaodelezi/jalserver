@@ -35,7 +35,6 @@
 {% for trst in trst_list %}
     {{trst.0}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp目的港：{{trst.1}}&nbsp&nbsp&nbsp{{trst.2}}
     <br>--------- 
-    <br>
 {% endfor %}
 <p>----------------------------------------------</p>
 
@@ -46,29 +45,32 @@
         {{avi.0}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{avi.5}}P&nbsp&nbsp&nbsp{{avi.6}}K
         <br>
         {%for uld in avi.2%}
-            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG<br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG
+            <br>
         {%endfor%}
     {% endfor %}
 {% endif %}
-
+<p>----------------------------------------------</p>
 {% if hum_list  %}
 <p>---HUM---</p>
     {%for hum in hum_list%}
         {{hum.0}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{hum.5}}P&nbsp&nbsp&nbsp{{hum.6}}K
         <br>
         {%for uld in hum.2%}
-            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG<br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG
+            <br>
         {%endfor%}
     {% endfor %}
 {% endif %}
-
+<p>----------------------------------------------</p>
 {% if val_list  %}
 <p>---VAL---</p>
     {%for val in val_list%}
         {{val.0}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{val.5}}P&nbsp&nbsp&nbsp{{val.6}}K
         <br>
         {%for uld in val.2%}
-            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG<br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{uld.0}}&nbsp&nbsp&nbsp&nbsp{{uld.1}}P&nbsp&nbsp&nbsp&nbsp{{uld.2}}KG
+            <br>
         {%endfor%}
     {% endfor %}
 {% endif %}
@@ -103,3 +105,4 @@
     {{jsp.0}}<br>
 {% endfor %}
 <br>
+<p>----------------------------------------------</p>

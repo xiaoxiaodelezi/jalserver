@@ -258,3 +258,11 @@ AVI,JCA,JPH,BUP,COL,等测试由于数据量少，暂时还没有办法进行。
 
 
 
+2022.12.5
+
+版本：Alpha 1.1.6
+
+修改了进港特殊货物result的templates
+
+
+
