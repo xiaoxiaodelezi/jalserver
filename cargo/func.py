@@ -70,16 +70,16 @@ def auxiliary_instance(wood,bandage,skid,flight,date,agency,new_dir):
 def getstrfrompdf(file):
     f=io.BytesIO(file) 
     pdf = pdfplumber.open(f)
-    str=""
+    str_result=""
     for page in pdf.pages:
-        str+=page.extract_text()+'\n'
-    return str
+       str_result+=page.extract_text()+'\n'
+    return str_result
 
 
 # 进口带板箱信息的wa解析
-def extract_wa(str):
+def extract_wa(str_input):
     #以行为单位分割str
-    original_list=str.split('\n')    
+    original_list=str_input.split('\n')    
     length=(len(original_list))
     for i in range(0,length):
         #标记运单号前的锚点，方便按运单切割
