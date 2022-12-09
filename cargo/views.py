@@ -17,6 +17,8 @@ from .func import send_mail
 from .func import getstrfrompdf
 #将到达wa（含板箱信息）的字符串转为相关内容
 from .func import extract_wa
+#从air cargo manifest中提取数据
+from .func import air_cargo_manifest
 
 
 def cgo_homepage(request):
@@ -355,3 +357,17 @@ def cgo_ic_crosscheck_result(request):
     context={'return_str':return_str}
 
     return render(request,'cgo_ic_crosscheck_result_templates.html',context)
+
+
+
+def cgo_traffic_notallowedcargo_upload(request):
+    return render(request,'cgo_traffic_notallowedcargo_upload_templates.html')
+
+def cgo_traffic_notallowedcargo_result(request):
+    if request.method == 'POST':
+        manifest=request.FILES.get('manifest')
+
+    manifest_details=air_cargo_manifest(manifest)
+    
+    return HttpResponse("notallowedcargoresult")
+

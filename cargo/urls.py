@@ -16,4 +16,6 @@ urlpatterns=[
     path('ic_homepage',views.cgo_ic_homepage,name='ic_homepage'),
     path('ic_crosscheck_upload',views.cgo_ic_crosscheck_upload,name='ic_crosscheck_upload'),
     path('ic_crosscheck_result',views.cgo_ic_crosscheck_result,name='ic_crosscheck_result'),
+    path('traffic_notallowedcargo_upload',views.cgo_traffic_notallowedcargo_upload,name='traffic_notallowedcargo_upload'),
+    path('traffic_notallowedcargo_result',views.cgo_traffic_notallowedcargo_result,name='traffic_notallowedcargo_result'),
 ]

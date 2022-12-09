@@ -1,0 +1,12 @@
+<p>Cargo notallowedcargo</p>
+
+<form action="{% url 'traffic_notallowedcargo_result' %}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    <br>
+    <br>  	 
+     manifest   <input type="file" name="manifest">
+    <br>
+
+    <br>
+    <input type="submit">
+</form>
