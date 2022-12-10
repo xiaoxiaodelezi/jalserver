@@ -426,3 +426,46 @@ def air_cargo_manifest(manifest):
     return manifest_detail
 
 
+import decimal
+#pdf 和 excel的cross check
+def pdf_excel_cross_check(pdf,xlsx):            
+    pdf=pdfplumber.open(pdf)
+    pdf_awb_dic={}
+    for page in pdf.pages:
+        for line in page.extract_text().split("\n"):
+            if line[:4] == "131-":
+                if "/" in line:
+                    pdf_awb_dic[line[:3]+line[4:12]]=" ".join(line[13:].split(' ')[:-1]).replace(",","")
+                else:
+                    pdf_awb_dic[line[:3]+line[4:12]]=" ".join(line[13:].split(' ')).replace(",","")
+
+    wb=openpyxl.load_workbook(xlsx,data_only=True)
+    ws=wb.worksheets[0]
+    excel_awb_dic={}
+    for i in range (2,ws.max_row+1):
+        # awbnum=ws.cell(i,13).value
+        v=decimal.Decimal(ws.cell(i,22).value).quantize(decimal.Decimal('0.00'))
+        ac=decimal.Decimal(ws.cell(i,29).value).quantize(decimal.Decimal('0.00'))
+        y=decimal.Decimal(ws.cell(i,25).value).quantize(decimal.Decimal('0.00'))
+        v_ab=decimal.Decimal(float(ws.cell(i,22).value)-float(ws.cell(i,28).value)).quantize(decimal.Decimal('0.00'))
+        ab__ac=decimal.Decimal(float(ws.cell(i,28).value)+float(ws.cell(i,29).value)).quantize(decimal.Decimal('0.00'))#ab+ac
+        i_j=ws.cell(i,9).value+"-"+ws.cell(i,10).value#i-j
+        x=decimal.Decimal(float(ws.cell(i,24).value)).quantize(decimal.Decimal('0.00'))#x
+        excel_awb_str=str(v)+" "+str(ac)+" "
+        if y:
+            excel_awb_str+=str(y)+" "
+        if v_ab:
+            excel_awb_str+=str(v_ab)+" "
+        excel_awb_str+= str(ab__ac)+" "+i_j+" "+str(x)
+        excel_awb_dic[ws.cell(i,13).value]=excel_awb_str
+
+    setpdf=set(pdf_awb_dic.keys())
+    setexcel=set(excel_awb_dic.keys())
+    inpdfnotexcel=list(setpdf-setexcel)
+    inexcelnotpdf=list(setexcel-setpdf)
+    notequal=[]
+    for item in list(setexcel & setpdf):
+        if excel_awb_dic[item] != pdf_awb_dic[item]:
+            notequal.append(item)
+    return inpdfnotexcel,inexcelnotpdf,notequal
+

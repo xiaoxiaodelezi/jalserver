@@ -19,6 +19,8 @@ from .func import getstrfrompdf
 from .func import extract_wa
 #从air cargo manifest中提取数据
 from .func import air_cargo_manifest
+#cargosalesreport pdf 和 excel对比
+from .func import pdf_excel_cross_check
 
 
 def cgo_homepage(request):
@@ -363,11 +365,28 @@ def cgo_ic_crosscheck_result(request):
 def cgo_traffic_notallowedcargo_upload(request):
     return render(request,'cgo_traffic_notallowedcargo_upload_templates.html')
 
+#尚未完成
 def cgo_traffic_notallowedcargo_result(request):
     if request.method == 'POST':
         manifest=request.FILES.get('manifest')
-
     manifest_details=air_cargo_manifest(manifest)
     
     return HttpResponse("notallowedcargoresult")
+
+
+def cgo_fr_cargosalesreport_pdfexcel_upload(request):
+    return render(request,"cgo_fr_cargosalesreport_pdfexcel_upload_templates.html")
+
+def cgo_fr_cargosalesreport_pdfexcel_result(request):
+    if request.method=="POST":
+        pdf=request.FILES.get('Cargo Sales Report pdf')
+        xlsx=request.FILES.get('Cargo Sales Report excel')
+    inpdfnotexcel,inexcelnotpdf,notequal=pdf_excel_cross_check(pdf,xlsx)
+    context={
+        "inpdfnotexcel":inpdfnotexcel,
+        "inexcelnotpdf":inexcelnotpdf,
+        "notequal":notequal,
+    }
+    
+    return render(request,"cgo_fr_cargosalesreport_pdfexcel_result_templates.html",context)
 

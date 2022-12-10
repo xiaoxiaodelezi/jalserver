@@ -313,3 +313,15 @@ AVI,JCA,JPH,BUP,COL,等测试由于数据量少，暂时还没有办法进行。
 在sales对比中增加了pdf和excel的对比。
 
 目前只写了对比逻辑。
+
+
+
+2022.12.10
+
+版本：Alpha 1.1.9.1
+
+在sales对比中增加了pdf和excel的对比。（需要注意的是目前excel是xlsx版本，需要销售自己从xls调整位xlsx）
+
+salse report的pdf和excel对比已经经过测试，写入了func。upload templates完成， result templates目前还没有完成。
+
+另外notallowedcargo的resutl templates也还没有完成。

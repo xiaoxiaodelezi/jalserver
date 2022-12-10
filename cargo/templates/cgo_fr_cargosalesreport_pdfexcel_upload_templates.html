@@ -1,0 +1,12 @@
+<p1>This is import cargo special upload page</p1>
+
+<form action="{% url 'fr_cargosalesreport_pdfexcel_result'%} " method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    PDF:<br>
+    <input type="file" name="Cargo Sales Report pdf">
+    <br>
+    XLSX:<br>
+    <input type="file" name="Cargo Sales Report excel">
+    <br>
+    <input type="submit">
+</form>
