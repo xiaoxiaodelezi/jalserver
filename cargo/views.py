@@ -224,9 +224,9 @@ def cgo_traffic_scsforotherairlines_result(request):
             if flightnumber[:2]=="CK" or flightnumber[:2]=="MU":
                 send_address=ckaddress 
             # 项目地址    
-            # send_mail(send_address,flightnumber+"/"+flightdate+" 美国方面货物保函",content)
+            send_mail(send_address,flightnumber+"/"+flightdate+" 美国方面货物保函",content)
             # test邮箱地址
-            send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
+            # send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
         except:
             cocc_result="NOT OK"
 
@@ -239,9 +239,9 @@ def cgo_traffic_scsforotherairlines_result(request):
         jl_result="OK"
         try:
             # 项目地址
-            # send_mail('pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
+            send_mail('pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
             # test邮箱地址
-            send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
+            # send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
         except:
             jl_result="NOT OK"
 
