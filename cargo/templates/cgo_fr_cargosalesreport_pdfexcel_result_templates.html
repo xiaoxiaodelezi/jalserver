@@ -1,1 +1,21 @@
-aaaa
+<p>PDF EXCEL Result</p>
+<br>
+<p>----------------------------</p>
+<p>IN PDF NOT IN EXCEL</p>
+{% for item in inpdfnotexcel %}
+    <p>{{item}}</p>
+{% endfor %}
+<br>
+<p>----------------------------</p>
+<p>IN EXCEL NOT IN PDF</p>
+{% for item in inexcelnotpdf %}
+    <p>{{item}}</p>
+{% endfor %}
+<br>
+<p>----------------------------</p>
+<p>NOT EQUAL IN PDF and EXCEL</p>
+{% for item in notequal %}
+    <p>{{item}}</p>
+{% endfor %}
+<br>
+<p>----------------------------</p>

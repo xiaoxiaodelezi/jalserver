@@ -2,9 +2,9 @@
 
 <form action="{% url 'fr_cargosalesreport_result'%} " method="post" enctype="multipart/form-data">
 {% csrf_token %}
-    <input type="file" name="Cargo Sales Report 01">
+    <input type="file" name="Cargo Sales Report 01" accept=".pdf">
     <br>
-    <input type="file" name="Cargo Sales Report 02">
+    <input type="file" name="Cargo Sales Report 02" accept=".pdf">
     <br>
     <input type="submit">
 </form>

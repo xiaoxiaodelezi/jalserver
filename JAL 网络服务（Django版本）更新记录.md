@@ -325,3 +325,11 @@ AVI,JCA,JPH,BUP,COL,等测试由于数据量少，暂时还没有办法进行。
 salse report的pdf和excel对比已经经过测试，写入了func。upload templates完成， result templates目前还没有完成。
 
 另外notallowedcargo的resutl templates也还没有完成。
+
+
+
+2022.12.11
+
+版本：Alpha 1.1.9.2
+
+完成了sales中pdf和excel对比的templates。
