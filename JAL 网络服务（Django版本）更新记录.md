@@ -341,3 +341,11 @@ salse report的pdf和excel对比已经经过测试，写入了func。upload temp
 版本：Alpha 1.1.9.3
 
 完成了traffic csp部分的可疑物品检查，但对应的国家等目前还没有想好逻辑。
+
+
+
+2022.12.12
+
+版本：Alpha 1.1.10
+
+cargosalescheck 增加了2个excel的比对。
