@@ -370,8 +370,21 @@ def cgo_traffic_notallowedcargo_result(request):
     if request.method == 'POST':
         manifest=request.FILES.get('manifest')
     manifest_details=air_cargo_manifest(manifest)
-    
-    return HttpResponse("notallowedcargoresult")
+    cargo_not_allowed_list=[]
+    for key in manifest_details:
+        #处理有品名检查的机制
+        if manifest_details[key][2]==True:
+           cargo_not_allowed_list.append("MAWB: "+key)
+        if manifest_details[key][4]:
+            for hawb in manifest_details[key][4]:
+                if manifest_details[key][4][hawb][0]==True:
+                    cargo_not_allowed_list.append("MAWB: "+key+"     HAWB: "+hawb)
+
+    context={
+        'cargo_not_allowed_list':cargo_not_allowed_list,
+    }    
+  
+    return render(request,'cgo_traffic_notallowedcargo_result_templates.html',context)
 
 
 def cgo_fr_cargosalesreport_pdfexcel_upload(request):
