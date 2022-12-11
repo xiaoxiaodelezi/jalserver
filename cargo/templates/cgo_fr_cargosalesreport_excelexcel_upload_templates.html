@@ -1,0 +1,12 @@
+<p1>This is import cargo special upload page</p1>
+<p>请将xls另存为xlsx再进行操作</p>
+<form action="{% url 'fr_cargosalesreport_excelexcel_result'%} " method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    XLSX1:<br>
+    <input type="file" name="xlsx1" accept=".xlsx">
+    <br>
+    XLSX2:<br>
+    <input type="file" name="xlsx2" accept=".xlsx">
+    <br>
+    <input type="submit">
+</form>

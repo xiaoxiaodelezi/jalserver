@@ -21,6 +21,8 @@ from .func import extract_wa
 from .func import air_cargo_manifest
 #cargosalesreport pdf 和 excel对比
 from .func import pdf_excel_cross_check
+#cargosalesreport excel 和 excel对比
+from .func import excel_excel_check
 
 
 def cgo_homepage(request):
@@ -224,9 +226,9 @@ def cgo_traffic_scsforotherairlines_result(request):
             if flightnumber[:2]=="CK" or flightnumber[:2]=="MU":
                 send_address=ckaddress 
             # 项目地址    
-            send_mail(send_address,flightnumber+"/"+flightdate+" 美国方面货物保函",content)
+            # send_mail(send_address,flightnumber+"/"+flightdate+" 美国方面货物保函",content)
             # test邮箱地址
-            # send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
+            send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 美国方面货物保函",content)
         except:
             cocc_result="NOT OK"
 
@@ -239,9 +241,9 @@ def cgo_traffic_scsforotherairlines_result(request):
         jl_result="OK"
         try:
             # 项目地址
-            send_mail('pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
+            # send_mail('pvgffunll@jal.com,org.pvgffkic.jali@jal.com,org.pvgffk.jali@jal.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
             # test邮箱地址
-            # send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
+            send_mail('eachdayachance@hotmail.com',flightnumber+"/"+flightdate+" 航班信息情况",content_jl)
         except:
             jl_result="NOT OK"
 
@@ -399,7 +401,22 @@ def cgo_fr_cargosalesreport_pdfexcel_result(request):
         "inpdfnotexcel":inpdfnotexcel,
         "inexcelnotpdf":inexcelnotpdf,
         "notequal":notequal,
-    }
-    
+    }  
     return render(request,"cgo_fr_cargosalesreport_pdfexcel_result_templates.html",context)
 
+def cgo_fr_cargosalesreport_excelexcel_upload(request):
+    return render(request,'cgo_fr_cargosalesreport_excelexcel_upload_templates.html')
+
+def cgo_fr_cargosalesreport_excelexcel_result(request):
+    if request.method=="POST":
+        xlsx1=request.FILES.get('xlsx1')
+        xlsx2=request.FILES.get('xlsx2')
+    in1not2,in2not1,not_equal_list = excel_excel_check(xlsx1,xlsx2)
+    context={
+        "in1not2":in1not2,
+        "in2not1":in2not1,
+        "not_equal_list":not_equal_list,
+        "xlsx1":xlsx1.name,
+        "xlsx2":xlsx2.name,
+    }
+    return render(request,"cgo_fr_cargosalesreport_excelexcel_result_templates.html",context)

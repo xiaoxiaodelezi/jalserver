@@ -1,0 +1,26 @@
+<p1>CROSS CHECK RESULT</p1>
+<br>
+<br>
+<br>
+<p1>仅出现在{{xlsx1}}中的运单详情</p1>
+<br>
+{%for awb in in1not2 %}
+    <p1>{{awb}}<br></p1>
+{% endfor %}
+<br>
+<br>
+<br>
+<p1>仅出现在{{xlsx2}}中的运单详情</p1>
+<br>
+{%for awb in in2not1 %}
+    <p1>{{awb}}<br></p1>
+{% endfor %}
+<br>
+<br>
+<br>
+<p1>在{{xlsx1}}和{{xlsx2}}中的信息不一致的运单详情</p1>
+<br>
+{%for awb in not_equal_list %}
+    <p1>{{awb}}<br></p1>
+{% endfor %}
+

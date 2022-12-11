@@ -469,3 +469,35 @@ def pdf_excel_cross_check(pdf,xlsx):
             notequal.append(item)
     return inpdfnotexcel,inexcelnotpdf,notequal
 
+def excel_excel_check(xlsx1,xlsx2):     
+    check_col_list=[22,24,25,26,28,29]       
+    wb1=openpyxl.load_workbook(xlsx1,data_only=True)
+    ws=wb1.worksheets[0]
+    xlsx1_awb_dic={}
+    for i in range (2,ws.max_row+1):
+        add_list=[]
+        for col in check_col_list:
+            add_list.append(ws.cell(i,col).value)
+        xlsx1_awb_dic[ws.cell(i,13).value]=add_list
+    wb1.close()
+
+    wb2=openpyxl.load_workbook(xlsx2,data_only=True)
+    ws=wb2.worksheets[0]
+    xlsx2_awb_dic={}
+    for i in range (2,ws.max_row+1):
+        add_list=[]
+        for col in check_col_list:
+            add_list.append(ws.cell(i,col).value)
+        xlsx2_awb_dic[ws.cell(i,13).value]=add_list
+    wb2.close()
+
+    xlsx1_set=set(xlsx1_awb_dic.keys())
+    xlsx2_set=set(xlsx2_awb_dic.keys())
+    in1not2=list(xlsx1_set-xlsx2_set)
+    in2not1=list(xlsx2_set-xlsx1_set)
+    not_equal_list=[]
+
+    for awb in (xlsx1_set & xlsx2_set):
+        if xlsx1_awb_dic[awb] != xlsx2_awb_dic[awb]:
+            not_equal_list.append(awb)
+    return in1not2,in2not1,not_equal_list
