@@ -349,3 +349,11 @@ salse report的pdf和excel对比已经经过测试，写入了func。upload temp
 版本：Alpha 1.1.10
 
 cargosalescheck 增加了2个excel的比对。
+
+
+
+2022.12.12
+
+版本：Alpha 1.1.10.1
+
+修正了git上传的时间
