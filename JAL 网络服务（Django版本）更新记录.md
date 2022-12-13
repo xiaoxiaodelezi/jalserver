@@ -357,3 +357,13 @@ cargosalescheck 增加了2个excel的比对。
 版本：Alpha 1.1.10.1
 
 修正了git上传的时间
+
+
+
+
+
+2022.12.13
+
+版本：Alpha 1.1.10.2
+
+小bug修正。

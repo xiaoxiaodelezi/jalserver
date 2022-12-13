@@ -2,7 +2,7 @@
 
 <form action="{% url 'desk_importspecialcgo_result'%}" method="post" enctype="multipart/form-data">
 {% csrf_token %}
-    <input type="file" name="Weight Arrival with ULDs">
+    <input type="file" name="Weight Arrival with ULDs" accept=".pdf">
     <br>
     <input type="submit">
 </form>
