@@ -183,7 +183,9 @@ def extract_wa(str_input):
         str_list=str.split(";")[1:]
         for item in str_list:
             #找出出发港-目的港这个标记
-            pos=re.search(' [A-Z]{3}-[A-Z]{3} ',item).span()
+            #item逆向找出最后一个dep-dtn的匹配
+            pos=re.search(' [A-Z]{3}-[A-Z]{3} ',item[::-1]).span()
+            pos=(len(item)-pos[1],len(item)-pos[0])                        
             #获取运单号
             awb=item[:12]
             #获取出发港
