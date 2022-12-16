@@ -374,3 +374,19 @@ cargosalescheck 增加了2个excel的比对。
 
 修正了品名中带有dep-dtn这类字符导致的正则匹配问题。
 
+
+
+2022.12.16
+
+版本：Alpha 1.1.11
+
+增加了两个模型。
+
+special_uld：用来筛选需要特别注意的uld
+
+country：国家全名和缩写的对应表，用来将来核对用
+
+向airport模型导入了数据。
+
+在总目录下新建了一个文件夹related_documents用来存放相关的一些数据。
+
