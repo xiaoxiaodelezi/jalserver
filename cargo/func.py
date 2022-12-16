@@ -4,6 +4,8 @@ import re
 import os
 import uuid
 
+from .models import Special_uld
+
 #定义一些基本函数
 
 #邮件发送模块
@@ -275,8 +277,12 @@ def extract_wa(str_input):
 
     avi_list=[]
     hum_list=[]
-    val_list=[]    
-    special_uld_set=['RAP',"AKN","RKN"]
+    val_list=[]   
+
+    #数据库接入 
+    special_uld_set=[]
+    for item in Special_uld.objects.all():
+        special_uld_set.append(item.uld)
     temperature_request_list=['COL',"PER","ICE","JPH"]
 
 
