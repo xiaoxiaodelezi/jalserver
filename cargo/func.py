@@ -4,7 +4,7 @@ import re
 import os
 import uuid
 
-from .models import Special_uld
+from .models import Special_uld,Suspicious_good
 
 #定义一些基本函数
 
@@ -282,10 +282,9 @@ def extract_wa(str_input):
     #数据库接入 
     special_uld_set=[]
     for item in Special_uld.objects.all():
-        special_uld_set.append(item.uld)
+        special_uld_set.append(item.uld.upper())
+        
     temperature_request_list=['COL',"PER","ICE","JPH"]
-
-
 
     for awb_kind in [rev_local,nrev_local]:
         awb_kind_dic=getdetail(awb_kind)
@@ -378,8 +377,9 @@ def extract_wa(str_input):
 
 
 def air_cargo_manifest(manifest):
-
-    not_allowed_list=['SCOPE','SEA',"POWERPACK"]
+    not_allowed_list=[]
+    for item in Suspicious_good.objects.all():
+        not_allowed_list.append(item.name.upper())
 
     pdf = pdfplumber.open(manifest)
     pdf_list=[]
