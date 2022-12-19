@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns=[
-    path('',views.cgo_homepage,name='cgo_homepage'),
+    path('cgo_homepage',views.cgo_homepage,name='cgo_homepage'),
+    path('cgo_login',views.cgo_login,name='cgo_login'),
     path('desk_homepage',views.cgo_desk_homepage,name='cgo_desk_homepage'),
     path('desk_importspecialcgo_upload',views.cgo_desk_importspecialcgo_upload,name='desk_importspecialcgo_upload'),
     path('desk_importspecialcgo_result',views.cgo_desk_importspecialcgo_result,name='desk_importspecialcgo_result'),

@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
+
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
 
 import re
 import datetime
@@ -420,3 +423,14 @@ def cgo_fr_cargosalesreport_excelexcel_result(request):
         "xlsx2":xlsx2.name,
     }
     return render(request,"cgo_fr_cargosalesreport_excelexcel_result_templates.html",context)
+
+#登录cargo页面
+def cgo_login(request):
+    if request.method=="POST":
+        username=request.POST.get("username")
+        password=request.POST.get("password")
+        user = authenticate(username=username,password=password)
+        if user:
+            # login(request,user)
+            return redirect("cgo_homepage")
+    return render(request,'cgo_login_templates.html')
