@@ -1,0 +1,9 @@
+<p>AWB Distribution Result</p>
+
+<p>代理：{{agent}}</p>
+<p>运单票数：{{piece}}</p>
+<p>运单分发操作备案号：{{distribution_uuid}}</p>
+<br>
+{% for awb in awb_list %}
+<p>{{awb}}</p>
+{% endfor %}

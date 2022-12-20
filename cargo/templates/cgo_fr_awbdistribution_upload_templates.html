@@ -1,0 +1,14 @@
+<p>AWB Distribution</p>
+
+<form action="{% url 'fr_awbdistribution_result'%}" method="post">
+	{% csrf_token %}
+    <label>代理名：</label>
+    <input type="text" name="agent">
+    <br>
+    <label>起始运单：131-</label>
+    <input type="text" name="awbnumber">
+    <br>
+    <label>份数：</label>
+    <input type="number" name="piece">
+    <input type="submit" value="提交">
+</form>

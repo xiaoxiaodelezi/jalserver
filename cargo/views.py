@@ -1,21 +1,23 @@
+#django导入部分
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 
+#python基本库导入部分
 import re
 import datetime
-
-from bs4 import BeautifulSoup
+import uuid
 import requests
+
+#第三方库库导入部分
+from bs4 import BeautifulSoup
 import pdfplumber
 import openpyxl
 
-#从func中导入send_mail模块
-from .func import send_mail
-
 #从cargo/func中导入处理相关的函数
+#send_mail模块
+from .func import send_mail
 #从pdf中提取字符串
 from .func import getstrfrompdf
 #将到达wa（含板箱信息）的字符串转为相关内容
@@ -27,6 +29,9 @@ from .func import pdf_excel_cross_check
 #cargosalesreport excel 和 excel对比
 from .func import excel_excel_check
 
+
+#导入models中的数据库
+from .models import Awb_distribution,Awb_info
 
 def cgo_homepage(request):
     return render(request,'cgo_homepage_templates.html')
@@ -431,6 +436,52 @@ def cgo_login(request):
         password=request.POST.get("password")
         user = authenticate(username=username,password=password)
         if user:
-            # login(request,user)
+            login(request,user)
             return redirect("cgo_homepage")
     return render(request,'cgo_login_templates.html')
+
+def cgo_fr_awbdistribution_upload(request):
+    return render(request,"cgo_fr_awbdistribution_upload_templates.html")
+
+def cgo_fr_awbdistribution_result(request):
+    distribution_uuid=str(uuid.uuid4())
+    if request.method=="POST":
+        agent=request.POST.get("agent").upper()
+        awbnumber=request.POST.get("awbnumber")
+        piece=int(request.POST.get("piece"))
+
+    #awb_list 运算逻辑    
+    awb_list=[]
+    awb_list.append("131-"+awbnumber)
+    head=int(awbnumber)
+    for i in range(piece-1):
+
+        if head % 10<6:
+            head=head+11
+        else:
+            head=head+4
+        tail=len(str(head))
+        awb_list.append("131-"+"0"*(8-tail)+str(head))
+
+    #awb_list 加入数据库
+    for awb in awb_list:
+        awb_info=Awb_info(number=awb,agent=agent,distribution_uuid=distribution_uuid)
+        awb_info.save()
+
+    awbdistribution_create=Awb_distribution(agent=agent,
+                                            piece=piece,
+                                            distribution_uuid= distribution_uuid)
+    awbdistribution_create.save()
+    distribution_create_date=str(awbdistribution_create.distribution_date)
+ 
+    #等待添加运单在展示画面中的展示方式
+
+    context={
+        "agent":agent,
+        "piece":piece,
+        "awb_list":awb_list,
+        "distribution_create_date":distribution_create_date,
+        "distribution_uuid":distribution_uuid,
+    }
+    return render(request,"cgo_fr_awbdistribution_result_templates.html",context)
+

@@ -23,4 +23,6 @@ urlpatterns=[
     path('fr_cargosalesreport_pdfexcel_result',views.cgo_fr_cargosalesreport_pdfexcel_result,name='fr_cargosalesreport_pdfexcel_result'),
     path('fr_cargosalesreport_excelexcel_upload',views.cgo_fr_cargosalesreport_excelexcel_upload,name='fr_cargosalesreport_excelexcel_upload'),
     path('fr_cargosalesreport_excelexcel_result',views.cgo_fr_cargosalesreport_excelexcel_result,name='fr_cargosalesreport_excelexcel_result'),
+    path('fr_awbdistribution_upload',views.cgo_fr_awbdistribution_upload,name='fr_awbdistribution_upload'),
+    path('fr_awbdistribution_result',views.cgo_fr_awbdistribution_result,name='fr_awbdistribution_result'),
 ]

@@ -26,3 +26,23 @@ class Suspicious_good(models.Model):
     name=models.CharField(max_length=50)
     def __str__(self):
         return self.name
+
+#代理领取运单记录
+class Awb_distribution(models.Model):
+    agent=models.CharField(max_length=3)
+    piece=models.IntegerField()
+    #str(uuid.uuid4())
+    distribution_uuid=models.CharField(max_length=36)
+    distribution_date=models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.agent +"  " + str(self.distribution_date)
+
+#运单记录
+class Awb_info(models.Model):
+    number=models.CharField(max_length=12)
+    agent=models.CharField(max_length=3)
+    distribution_uuid=models.CharField(max_length=36)
+
+    def __str__(self):
+        return self.number
