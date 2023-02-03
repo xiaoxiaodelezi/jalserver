@@ -103,6 +103,10 @@
 <p>*****物流JSP货物清单*****</p>
 {% for jsp in jsp_list %}
     {{jsp.0}}<br>
-{% endfor %}
+{% endfor %}<br>
+----JSP所在板箱号----<br>
+{% for jsp_uld in jsp_arr_uld_list %}
+    {{jsp_uld}}<br>
+{% endfor %}<br>
 <br>
 <p>----------------------------------------------</p>

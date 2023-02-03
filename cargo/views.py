@@ -49,7 +49,16 @@ def cgo_desk_importspecialcgo_result(request):
         #转为二进制文件的方法已经包含在getstrfrompdf中
         str=getstrfrompdf(myfile.read())
         flightnumber,flightdate,arr_weight,jsp_list,jca_list,temperature_list,bup_list,jph_list,special_uld_list,special_code_on_flight,trst_list,val_list,hum_list,avi_list=extract_wa(str)
-            
+
+        #增加
+        jsp_arr_uld=[]
+        for item in jsp_list:
+            for uld_detail in item[2]:
+                jsp_arr_uld.append(uld_detail[0])
+
+        jsp_arr_uld_list=list(set(jsp_arr_uld))
+
+
         context={
             'flightnumber':flightnumber,
             'flightdate':flightdate,
@@ -65,6 +74,7 @@ def cgo_desk_importspecialcgo_result(request):
             'val_list':val_list,
             'hum_list':hum_list,
             'avi_list':avi_list,
+            'jsp_arr_uld_list':jsp_arr_uld_list,
         }
         
     return render(request,'cgo_desk_importspecialcgo_result_templates.html',context)
