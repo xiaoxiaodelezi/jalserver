@@ -438,3 +438,10 @@ cgo_login_templates
 
 增加了JSP的ULD筛选
 
+
+
+2023.02.04
+
+版本：Alpha 1.1.17
+
+断开了cgo_login界面，目前不需要
