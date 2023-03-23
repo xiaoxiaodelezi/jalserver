@@ -142,7 +142,7 @@ def cgo_traffic_scsforotherairlines_result(request):
     if request.method=="POST":
         america_list=[
         'BOS','ORD','JFK','YVR','PDX','SEA','YYT','YUL','YHZ','YYC',
-        'YYZ','YEG','DFW','AUS','LRD','MIA','IAH','ATL','MEM','SAT','MSY','BUF',
+        'YYZ','YEG','DFW','AUS','LRD','MIA','IAH','ATL','MEM','SAT','MSY','BUF','HNL',
         'BWI','CHS','CLE','CLT','CMH','IAD','MCO','ORF','PHL','RDU',
         'ROC','TPA','JAX','BNA','CVG','DTW','IND','MCI',
         'MSP','PIT','SDF','STL','LAX','SLC','SFO','DEN','ELP','LAS','PHX','SAN',
